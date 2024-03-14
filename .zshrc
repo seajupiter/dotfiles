@@ -81,7 +81,7 @@ plugins=(
     git
     zsh-syntax-highlighting
     zsh-autosuggestions
-    z
+    zoxide
     vi-mode
 )
 
@@ -128,14 +128,16 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 
-export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+# export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
 
 export PATH='/Users/wyt/.opam/CP.2023.03+b1~8.17~2023.03+beta1/bin/':$PATH
 export PATH='/Users/wyt/bin/':$PATH
 export PATH="/Applications/Skim.app/Contents/MacOS:$PATH"
 export PATH="/Users/wyt/bin/pdfc:$PATH"
 export PATH="/Users/wyt/emsdk/upstream/emscripten:$PATH"
-export PATH="/Users/wyt/emsdk:$PATH"
+export PATH="/Users/wyt/.ghcup/bin:$PATH"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/lib/ruby/gems/3.3.0/bin:$PATH"
 
 # fzf configuration
 export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files'
@@ -145,14 +147,13 @@ export FZF_ALT_C_COMMAND="rg --hidden --files --null | xargs -0 dirname | uniq"
 export FZF_ALT_C_COMMAND="find . -d"
 
 
-export EDITOR='nvim'
+export EDITOR='/opt/homebrew/bin/nvim'
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
-alias proxy='export https_proxy=http://127.0.0.1:7890;export http_proxy=http://127.0.0.1:7890;export all_proxy=socks5://127.0.0.1:7890'
+alias proxy='export https_proxy=http://127.0.0.1:7897 http_proxy=http://127.0.0.1:7897 all_proxy=socks5://127.0.0.1:7897'
 alias unproxy='unset https_proxy; unset http_proxy; unset all_proxy'
-alias btop='bpytop'
 alias ls='eza'
 alias la='eza -a'
 alias ll='eza -la'
@@ -162,3 +163,11 @@ alias up='cd ..'
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+
+# opam configuration
+[[ ! -r /Users/wyt/.opam/opam-init/init.zsh ]] || source /Users/wyt/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
