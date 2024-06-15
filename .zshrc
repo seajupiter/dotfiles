@@ -82,7 +82,7 @@ plugins=(
     zsh-syntax-highlighting
     zsh-autosuggestions
     zoxide
-    vi-mode
+    fancy-ctrl-z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -112,6 +112,72 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+
+export PATH='/Users/wyt/.opam/CP.2023.03+b1~8.17~2023.03+beta1/bin/':$PATH
+export PATH='/Users/wyt/bin/':$PATH
+export PATH="/Applications/Skim.app/Contents/MacOS:$PATH"
+export PATH="/Users/wyt/bin/pdfc:$PATH"
+export PATH="/Users/wyt/emsdk/upstream/emscripten:$PATH"
+export PATH="/Users/wyt/.ghcup/bin:$PATH"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/lib/ruby/gems/3.3.0/bin:$PATH"
+export PATH="/opt/homebrew/Cellar/node/21.7.1/bin:$PATH"
+export PATH="/Users/wyt/.local/bin:$PATH"
+export PATH="/Users/wyt/.emacs.d/bin:$PATH"
+export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+
+# fzf configuration
+export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
+export FZF_ALT_C_COMMAND="rg --hidden --files --null | xargs -0 dirname | uniq"
+export FZF_ALT_C_COMMAND="find . -d"
+eval "$(fzf --zsh)"
+
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
+alias proxy='export https_proxy=http://127.0.0.1:7897 http_proxy=http://127.0.0.1:7897 all_proxy=socks5://127.0.0.1:7897'
+alias unproxy='unset https_proxy; unset http_proxy; unset all_proxy'
+alias ls='eza'
+alias la='eza -a'
+alias ll='eza -la'
+alias up='cd ..'
+alias kssh='kitten ssh'
+alias gitui='gitui -t frappe.ron'
+alias hl='hledger'
+
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+
+# opam configuration
+[[ ! -r /Users/wyt/.opam/opam-init/init.zsh ]] || source /Users/wyt/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+eval $(thefuck --alias)
+
+export NEOVIDE_FRAME='transparent'
+export EDITOR="/opt/homebrew/bin/nvim"
+
+# yazi 
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/wyt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -127,47 +193,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+alias vvim='NVIM_APPNAME=ViiEx/nvchad-conf/ nvim'
 
-# export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
-
-export PATH='/Users/wyt/.opam/CP.2023.03+b1~8.17~2023.03+beta1/bin/':$PATH
-export PATH='/Users/wyt/bin/':$PATH
-export PATH="/Applications/Skim.app/Contents/MacOS:$PATH"
-export PATH="/Users/wyt/bin/pdfc:$PATH"
-export PATH="/Users/wyt/emsdk/upstream/emscripten:$PATH"
-export PATH="/Users/wyt/.ghcup/bin:$PATH"
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-export PATH="/opt/homebrew/lib/ruby/gems/3.3.0/bin:$PATH"
-
-# fzf configuration
-export FZF_DEFAULT_COMMAND='rg --hidden --no-ignore --files'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
-export FZF_ALT_C_COMMAND="rg --hidden --files --null | xargs -0 dirname | uniq"
-export FZF_ALT_C_COMMAND="find . -d"
-
-
-export EDITOR='/opt/homebrew/bin/nvim'
-
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-
-alias proxy='export https_proxy=http://127.0.0.1:7897 http_proxy=http://127.0.0.1:7897 all_proxy=socks5://127.0.0.1:7897'
-alias unproxy='unset https_proxy; unset http_proxy; unset all_proxy'
-alias ls='eza'
-alias la='eza -a'
-alias ll='eza -la'
-alias up='cd ..'
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
-
-export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
-export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
-export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
-export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
-
-# opam configuration
-[[ ! -r /Users/wyt/.opam/opam-init/init.zsh ]] || source /Users/wyt/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+alias bean='cd ~/account-book; open main.bean -a Emacs'
